@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import woordenapplicatie.Facade;
 
 /**
  * FXML Controller class
@@ -23,23 +24,8 @@ import javafx.scene.control.TextArea;
  */
 public class WoordenController implements Initializable {
     
-   private static final String DEFAULT_TEXT =   "Een, twee, drie, vier\n" +
+   public static final String DEFAULT_TEXT =   "Een, twee, drie, vier\n" +
                                                 "Hoedje van, hoedje van\n" +
-                                                "Een, twee, drie, vier\n" +
-                                                "Hoedje van papier\n" +
-                                                "\n" +
-                                                "Heb je dan geen hoedje meer\n" +
-                                                "Maak er één van bordpapier\n" +
-                                                "Eén, twee, drie, vier\n" +
-                                                "Hoedje van papier\n" +
-                                                "\n" +
-                                                "Een, twee, drie, vier\n" +
-                                                "Hoedje van, hoedje van\n" +
-                                                "Een, twee, drie, vier\n" +
-                                                "Hoedje van papier\n" +
-                                                "\n" +
-                                                "En als het hoedje dan niet past\n" +
-                                                "Zetten we 't in de glazenkas\n" +
                                                 "Een, twee, drie, vier\n" +
                                                 "Hoedje van papier";
     
@@ -56,29 +42,32 @@ public class WoordenController implements Initializable {
     @FXML
     private TextArea taOutput;
 
+    private Facade textProcessor;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         taInput.setText(DEFAULT_TEXT);
+        textProcessor = new Facade();
     }
     
     @FXML
     private void aantalAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        taOutput.setText(textProcessor.executeAantal(taInput.getText()));
     }
 
     @FXML
     private void sorteerAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+         taOutput.setText(textProcessor.executeSorteer(taInput.getText())); 
     }
 
     @FXML
     private void frequentieAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        taOutput.setText(textProcessor.executeFrequentie(taInput.getText()));
     }
 
     @FXML
     private void concordatieAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        taOutput.setText(textProcessor.executeConcordantie(taInput.getText())); 
     }
    
 }
