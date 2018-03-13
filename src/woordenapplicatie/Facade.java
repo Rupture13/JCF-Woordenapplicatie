@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,15 +61,15 @@ public class Facade {
     public String readInputFromFile(boolean large) {
         String path;
         if (large) {
-            path = System.getProperty("user.dir") + File.separator + "input10000.txt";
+            path = System.getProperty("user.dir") + File.separator + "input1000000.txt";
         }
         else {
-            path = System.getProperty("user.dir") + File.separator + "input1000000.txt";
+            path = System.getProperty("user.dir") + File.separator + "input10000.txt";
         }
         String content = "test test";
         
-        try (FileReader fr = new FileReader(path); BufferedReader br = new BufferedReader(fr); Scanner s = new Scanner(br).useDelimiter("\\Z")) {
-            content = s.next();
+        try {
+            content = new String(Files.readAllBytes(Paths.get(path)));
         } catch (IOException e) {
             Logger.getGlobal().log(Level.SEVERE, "Reading files failed.");
             return "nothing";
